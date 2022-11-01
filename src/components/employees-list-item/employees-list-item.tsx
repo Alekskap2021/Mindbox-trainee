@@ -1,28 +1,24 @@
-import React from "react";
+import React, { ChangeEvent, FC } from "react";
 
 import "./employees-list-item.css";
+import Employee from "../types";
 
-const EmployeesListItem = (props) => {
-  const onSalaryChange = (e) => {
-    props.onChangeSalary(e.target);
-  };
+interface EmployeesListItemProps {
+  onDelete: () => void;
+  onToggleIncrease: () => void;
+  onTogglePromotion: () => void;
+  onChangeSalary: (id: number, e: ChangeEvent<HTMLInputElement>) => void;
+  li: Employee;
+}
 
-  const setCursor = (e) => {
-    if (e.target.selectionStart) {
-      var end = e.target.value.length - 1;
-      e.target.setSelectionRange(end, end);
-      e.target.focus();
-    }
-  };
-  const set$ = (salary) => {
-    if (salary.toString().indexOf(`$`) === -1) {
-      return salary + `$`;
-    }
-    return salary;
-  };
-
-  const { name, salary, increase, promotion, onDelete, onTogglePromotion, onToggleIncrease } =
-    props;
+const EmployeesListItem: FC<EmployeesListItemProps> = ({
+  onToggleIncrease,
+  onTogglePromotion,
+  onChangeSalary,
+  onDelete,
+  li,
+}) => {
+  const { name, salary, increase, promotion } = li;
 
   let classNames = "list-group-item d-flex justify-content-between row g-0";
 
@@ -43,14 +39,7 @@ const EmployeesListItem = (props) => {
         {name}
       </span>
       <div className="empControl col-6 d-flex justify-content-end">
-        <input
-          type="text"
-          className="list-group-item-input"
-          value={set$(salary)}
-          onClick={setCursor}
-          onChange={onSalaryChange}
-          title="Изменить зп"
-        />
+        <input type="text" className="list-group-item-input" defaultValue={`${salary}$`} readOnly />
         <div className="btns-group d-flex justify-content-center align-items-center">
           <button
             type="button"

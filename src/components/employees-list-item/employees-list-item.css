@@ -21,6 +21,10 @@
   border: 0;
 }
 
+.list-group-item input:focus-visible {
+  outline: none;
+}
+
 .list-group-item button {
   width: 35px;
   height: 35px;
@@ -76,10 +80,7 @@
     transition: transform 0.2s ease;
     transform: scale(1.1);
   }
-  .list-group-item-input:hover {
-    transition: transform 0.2s ease;
-    transform: scale(1.1);
-  }
+
   .list-group-item input {
     margin-right: 20px;
   }
